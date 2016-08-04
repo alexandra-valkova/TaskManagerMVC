@@ -1,0 +1,34 @@
+﻿@model System.Object
+
+@{
+    string action = ViewContext.RouteData.Values["action"].ToString();
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
+    string prefix = Model.GetType().GetProperty("Prefix").GetValue(Model).ToString();
+    System.Reflection.PropertyInfo[] properties = Model.GetType().GetProperties();
+}
+
+@using (Html.BeginForm(action, controller, FormMethod.Get))
+{
+    <div class="form-horizontal">
+
+        @foreach (System.Reflection.PropertyInfo prop in properties)
+        {
+            if (prop.Name != "Prefix")
+            {
+                <div class="form-group">
+                    @Html.Label(prop.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBox(prefix + prop.Name, prop.GetValue(Model), new { @class = "form-control", id = prop.Name })
+                    </div>
+                </div>
+            }
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
