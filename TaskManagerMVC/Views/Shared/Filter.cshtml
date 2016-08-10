@@ -4,24 +4,57 @@
     string action = ViewContext.RouteData.Values["action"].ToString();
     string controller = ViewContext.RouteData.Values["controller"].ToString();
     string prefix = Model.GetType().GetProperty("Prefix").GetValue(Model).ToString();
-    System.Reflection.PropertyInfo[] properties = Model.GetType().GetProperties();
+    PropertyInfo[] properties = Model.GetType().GetProperties();
+    Dictionary<PropertyInfo, FilterPropertyAttribute> editableProperties = new Dictionary<PropertyInfo, FilterPropertyAttribute>();
+    var parentPager = (Pager)Model.GetType().GetProperty("ParentPager").GetValue(Model);
+
+    foreach (PropertyInfo pi in properties)
+    {
+        object obj = pi.GetCustomAttribute(typeof(FilterPropertyAttribute));
+
+        if (obj != null)
+        {
+            FilterPropertyAttribute attribute = (FilterPropertyAttribute)obj;
+            editableProperties.Add(pi, attribute);
+        }
+    }
 }
 
 @using (Html.BeginForm(action, controller, FormMethod.Get))
 {
     <div class="form-horizontal">
 
-        @foreach (System.Reflection.PropertyInfo prop in properties)
+        @foreach (string key in Request.QueryString.Keys)
         {
-            if (prop.Name != "Prefix")
+            if (!key.StartsWith(prefix) && key != parentPager.Prefix + "CurrentPage")
             {
-                <div class="form-group">
-                    @Html.Label(prop.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBox(prefix + prop.Name, prop.GetValue(Model), new { @class = "form-control", id = prop.Name })
-                    </div>
-                </div>
+                @Html.Hidden(key, Request.QueryString[key]);
             }
+        }
+
+        @foreach (KeyValuePair<string, object> kvp in ViewContext.RouteData.Values)
+        {
+            if (kvp.Key != "controller" && kvp.Key != "action" && kvp.Key != parentPager.Prefix + "CurrentPage" && !kvp.Key.StartsWith(prefix))
+            {
+                @Html.Hidden(kvp.Key, kvp.Value);
+            }
+        }
+
+        @foreach (KeyValuePair<PropertyInfo, FilterPropertyAttribute> prop in editableProperties)
+        {
+            <div class="form-group">
+                @Html.Label(prop.Key.Name, prop.Value.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @if (!string.IsNullOrEmpty(prop.Value.DropDownList))
+                    {
+                        @Html.DropDownList(prefix + prop.Key.Name, (SelectList)Model.GetType().GetProperty(prop.Value.DropDownList).GetValue(Model), new { @class = "form-control", id = prop.Key.Name })
+                    }
+                    else
+                    {
+                        @Html.TextBox(prefix + prop.Key.Name, prop.Key.GetValue(Model), new { @class = "form-control", id = prop.Key.Name })
+                    }
+                </div>
+            </div>
         }
 
         <div class="form-group">

@@ -35,6 +35,7 @@ namespace TaskManagerMVC.Controllers
             // Pagination
             model.Pager = new Pager(model.Items.Count, model.Pager == null ? 1 : model.Pager.CurrentPage, "Pager.", "Index", typeof(T).Name.ToString(), model.Pager == null ? 3 : model.Pager.PageSize);
             model.Items = model.Items.Skip((model.Pager.CurrentPage - 1) * model.Pager.PageSize).Take(model.Pager.PageSize).ToList();
+            model.Filter.ParentPager = model.Pager;
 
             return View(model);
         }

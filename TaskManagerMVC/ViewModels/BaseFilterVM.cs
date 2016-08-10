@@ -1,6 +1,7 @@
 ﻿using DataAccess.Entities;
 using System;
 using System.Linq.Expressions;
+using TaskManagerMVC.Models;
 
 namespace TaskManagerMVC.ViewModels
 {
@@ -14,6 +15,8 @@ namespace TaskManagerMVC.ViewModels
             }
         }
 
-    public abstract Expression<Func<T, bool>> BuildFilter();
+        public Pager ParentPager { get; set; }
+
+        public abstract Expression<Func<T, bool>> BuildFilter();
     }
 }
