@@ -1,6 +1,6 @@
 ﻿using System.Web;
 using DataAccess.Entities;
-using DataAccess.Services;
+using ServiceLayer.Services;
 
 namespace TaskManagerMVC.Models
 {

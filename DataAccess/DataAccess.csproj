@@ -62,7 +62,6 @@
     <Compile Include="Repositories\LogworkRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="TaskManagerMvcDB.cs" />
   </ItemGroup>
   <ItemGroup>

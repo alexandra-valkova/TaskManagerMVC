@@ -223,6 +223,10 @@
       <Project>{a87cb780-4983-407b-a89d-851e9a182c63}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj">
+      <Project>{42091cf7-40cb-4464-b636-b8c90ebbda0c}</Project>
+      <Name>ServiceLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

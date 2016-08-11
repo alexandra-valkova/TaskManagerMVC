@@ -1,5 +1,5 @@
 ﻿using DataAccess.Entities;
-using DataAccess.Repositories;
+using ServiceLayer.Services;
 using TaskManagerMVC.ViewModels.Users;
 
 namespace TaskManagerMVC.Controllers
@@ -7,9 +7,9 @@ namespace TaskManagerMVC.Controllers
     public class UserController : BaseController<User, UserIndexVM, UserFilterVM, UserDetailsVM, UserCreateEditVM>
     {
         // Repo
-        public override BaseRepository<User> GetRepo()
+        public override BaseService<User> GetService()
         {
-            return new UserRepository();
+            return new UserService();
         }
 
         // Index
@@ -18,8 +18,8 @@ namespace TaskManagerMVC.Controllers
             model.Filter = new UserFilterVM();
             TryUpdateModel(model);
 
-            BaseRepository<User> userRepo = GetRepo();
-            model.Items = userRepo.GetAll(model.Filter.BuildFilter());
+            BaseService<User> userService = GetService();
+            model.Items = userService.GetAll(model.Filter.BuildFilter());
 
             return model;
         }
@@ -27,8 +27,8 @@ namespace TaskManagerMVC.Controllers
         // Details
         public override UserDetailsVM PopulateDetailsModel(UserDetailsVM model)
         {
-            BaseRepository<User> userRepo = GetRepo();
-            User user = userRepo.GetByID(model.ID);
+            BaseService<User> userService = GetService();
+            User user = userService.GetByID(model.ID);
 
             model.Username = user.Username;
             model.FirstName = user.FirstName;
@@ -43,8 +43,8 @@ namespace TaskManagerMVC.Controllers
         {
             if (model.ID > 0)
             {
-                BaseRepository<User> userRepo = GetRepo();
-                User user = userRepo.GetByID(model.ID);
+                BaseService<User> userService = GetService();
+                User user = userService.GetByID(model.ID);
 
                 model.Username = user.Username;
                 model.Password = user.Password;

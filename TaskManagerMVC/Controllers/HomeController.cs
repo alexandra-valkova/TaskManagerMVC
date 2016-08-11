@@ -1,5 +1,6 @@
 ﻿using TaskManagerMVC.Models;
 using System.Web.Mvc;
+using TaskManagerMVC.ViewModels.Home;
 
 namespace TaskManagerMVC.Controllers
 {
@@ -17,18 +18,17 @@ namespace TaskManagerMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(LoginVM model)
         {
-            AuthenticationManager.Login(username, password);
+            AuthenticationManager.Login(model.Username, model.Password);
 
             if (AuthenticationManager.LoggedUser == null)
             {
-                ModelState.AddModelError("authenticationError", "Wrong username or password!");
-                ViewData["username"] = username;
-                return View();
+                ModelState.AddModelError(string.Empty, "Wrong username or password!");
+                return View(model);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Logout()
@@ -38,7 +38,7 @@ namespace TaskManagerMVC.Controllers
                 AuthenticationManager.Logout();
             }
 
-            return RedirectToAction("Login", "Home");
+            return RedirectToAction("Login");
         }
     }
 }

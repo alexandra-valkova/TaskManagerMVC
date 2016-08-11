@@ -25,7 +25,13 @@
             Description
         </th>
         <th>
-            Working Hours
+            Hours
+        </th>
+        <th>
+            Creator
+        </th>
+        <th>
+            Responsible
         </th>
         <th>
             Status
@@ -44,6 +50,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => task.WorkingHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Creator.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Responsible.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => task.Status)

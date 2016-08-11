@@ -1,19 +1,19 @@
 ﻿using DataAccess.Entities;
 using System;
-using DataAccess.Repositories;
 using TaskManagerMVC.Models;
 using TaskManagerMVC.ViewModels.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using ServiceLayer.Services;
 
 namespace TaskManagerMVC.Controllers
 {
     public class TaskController : BaseController<Task, TaskIndexVM, TaskFilterVM, TaskDetailsVM, TaskCreateEditVM>
     {
         // Repo
-        public override BaseRepository<Task> GetRepo()
+        public override BaseService<Task> GetService()
         {
-            return new TaskRepository();
+            return new TaskService();
         }
 
         // Index
@@ -22,9 +22,9 @@ namespace TaskManagerMVC.Controllers
             model.Filter = new TaskFilterVM();
             TryUpdateModel(model);
 
-            BaseRepository<Task> taskRepo = GetRepo();
+            BaseService<Task> taskService = GetService();
 
-            model.Items = taskRepo.GetAll(model.Filter.BuildFilter());
+            model.Items = taskService.GetAll(model.Filter.BuildFilter());
 
             return model;
         }
@@ -34,23 +34,23 @@ namespace TaskManagerMVC.Controllers
         {
             TryUpdateModel(model);
 
-            BaseRepository<Task> taskRepo = GetRepo();
-            UserRepository userRepo = new UserRepository();
-            LogworkRepository logworkRepo = new LogworkRepository();
-            CommentRepository commentRepo = new CommentRepository();
+            BaseService<Task> taskService = GetService();
+            UserService userService = new UserService();
+            LogworkService logworkService = new LogworkService();
+            CommentService commentService = new CommentService();
 
-            Task task = taskRepo.GetByID(model.ID);
+            Task task = taskService.GetByID(model.ID);
 
             model.Title = task.Title;
             model.Description = task.Description;
             model.WorkingHours = task.WorkingHours;
-            model.Creator = userRepo.GetByID(task.CreatorID).Username;
-            model.Responsible = userRepo.GetByID(task.ResponsibleID).Username;
+            model.Creator = userService.GetByID(task.CreatorID).Username;
+            model.Responsible = userService.GetByID(task.ResponsibleID).Username;
             model.CreateDate = task.CreateDate;
             model.LastEditDate = task.LastEditDate;
             model.Status = task.Status;
-            model.Logworks = logworkRepo.GetAll(l => l.TaskID == task.ID);
-            model.Comments = commentRepo.GetAll(c => c.TaskID == task.ID);
+            model.Logworks = logworkService.GetAll(l => l.TaskID == task.ID);
+            model.Comments = commentService.GetAll(c => c.TaskID == task.ID);
 
             //Pager
             model.LogworksPager = new Pager(model.Logworks.Count, model.LogworksPager == null ? 1 : model.LogworksPager.CurrentPage, "LogworksPager.", "Details", "Task", model.LogworksPager == null ? 3 : model.LogworksPager.PageSize);
@@ -67,8 +67,8 @@ namespace TaskManagerMVC.Controllers
         {
             if (model.ID > 0) // Edit
             {
-                BaseRepository<Task> taskRepo = GetRepo();
-                Task task = taskRepo.GetByID(model.ID);
+                BaseService<Task> taskService = GetService();
+                Task task = taskService.GetByID(model.ID);
 
                 model.Title = task.Title;
                 model.Description = task.Description;
@@ -86,8 +86,6 @@ namespace TaskManagerMVC.Controllers
         // CreateEdit POST
         public override Task PopulateEntity(TaskCreateEditVM model, Task task)
         {
-            UserRepository userRepo = new UserRepository();
-
             task.ID = model.ID;
             task.Title = model.Title;
             task.Description = model.Description;
@@ -137,8 +135,8 @@ namespace TaskManagerMVC.Controllers
                 CreateDate = DateTime.Now
             };
 
-            LogworkRepository logworkRepo = new LogworkRepository();
-            logworkRepo.Save(logwork);
+            LogworkService logworkService = new LogworkService();
+            logworkService.Save(logwork);
 
             return RedirectToAction("Details", new { id = model.TaskID });
         }
@@ -173,8 +171,8 @@ namespace TaskManagerMVC.Controllers
                 CreateDate = DateTime.Now
             };
 
-            CommentRepository commentRepo = new CommentRepository();
-            commentRepo.Save(comment);
+            CommentService commentService = new CommentService();
+            commentService.Save(comment);
 
             return RedirectToAction("Details", new { id = model.TaskID });
         }

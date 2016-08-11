@@ -1,5 +1,5 @@
 ﻿using DataAccess.Entities;
-using DataAccess.Repositories;
+using ServiceLayer.Services;
 using System.Linq;
 using System.Web.Mvc;
 using TaskManagerMVC.Filters;
@@ -16,7 +16,7 @@ namespace TaskManagerMVC.Controllers
         where D : BaseDetailsVM<T>, new()
         where C : BaseCreateEditVM<T>, new()
     {
-        public abstract BaseRepository<T> GetRepo();
+        public abstract BaseService<T> GetService();
 
         public abstract I PopulateIndexModel(I model);
 
@@ -45,7 +45,7 @@ namespace TaskManagerMVC.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index", typeof(T).Name.ToString());
+                return RedirectToAction("Index");
             }
 
             D model = new D()
@@ -84,14 +84,14 @@ namespace TaskManagerMVC.Controllers
                 return View(model);
             }
 
-            BaseRepository<T> entityRepo = GetRepo();
+            BaseService<T> entityService = GetService();
             T entity = new T();
 
             entity = PopulateEntity(model, entity);
 
-            entityRepo.Save(entity);
+            entityService.Save(entity);
 
-            return RedirectToAction("Index", typeof(T).Name.ToString());
+            return RedirectToAction("Index");
         }
 
         // Delete
@@ -99,21 +99,21 @@ namespace TaskManagerMVC.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index", typeof(T).Name.ToString());
+                return RedirectToAction("Index");
             }
 
-            BaseRepository<T> entityRepo = GetRepo();
+            BaseService<T> entityService = GetService();
 
-            T entity = entityRepo.GetByID(id.Value);
+            T entity = entityService.GetByID(id.Value);
 
             if (entity == null)
             {
                 return HttpNotFound();
             }
 
-            entityRepo.Delete(entity);
+            entityService.Delete(entity);
 
-            return RedirectToAction("Index", typeof(T).Name.ToString());
+            return RedirectToAction("Index");
         }
     }
 }
