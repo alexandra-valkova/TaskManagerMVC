@@ -10,6 +10,6 @@ namespace DataAccess
 
         }
 
-        public DbSet<T> Items { get; set; }        
+        public DbSet<T> Items { get; set; }
     }
 }

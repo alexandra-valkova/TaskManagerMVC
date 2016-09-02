@@ -87,7 +87,8 @@ namespace DataAccess.Repositories
         // Delete
         public void Delete(T entity)
         {
-            DbSet.Remove(entity);
+            Context.Entry(entity).State = EntityState.Deleted;
+            //DbSet.Remove(entity);
             Context.SaveChanges();
         }
     }

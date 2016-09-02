@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="LogworkServices.asmx.cs" Class="TaskManagerAPI.WebServices.LogworkServices" %>

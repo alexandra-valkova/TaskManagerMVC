@@ -9,7 +9,7 @@ namespace ServiceLayer.Services
     public abstract class BaseService<T>
         where T : BaseEntity
     {
-        private BaseRepository<T> Repository { get; set; }
+        private BaseRepository<T> Repository;
 
         public abstract BaseRepository<T> CreateRepo();
 

@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="BaseServices.asmx.cs" Class="TaskManagerAPI.WebServices.BaseServices" %>

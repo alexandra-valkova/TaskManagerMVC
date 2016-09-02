@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="TaskManagerApiWCF.WcfServices.LogworkServices" CodeBehind="LogworkServices.svc.cs" %>
