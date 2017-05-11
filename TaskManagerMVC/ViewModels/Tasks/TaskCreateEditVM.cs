@@ -1,5 +1,5 @@
 ﻿using DataAccess.Entities;
-using DataAccess.Repositories;
+using ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,8 +31,8 @@ namespace TaskManagerMVC.ViewModels.Tasks
         {
             get
             {
-                UserRepository userRepo = new UserRepository();
-                List<User> usersAll = userRepo.GetAll();
+                UserService userService = new UserService();
+                List<User> usersAll = userService.GetAll();
                 List<SelectListItem> users = new List<SelectListItem>();
                 foreach (User user in usersAll)
                 {

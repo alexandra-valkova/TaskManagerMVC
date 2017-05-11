@@ -7,7 +7,6 @@ namespace DataAccess
     {
         public TaskManagerMvcDB() : base("name=TaskManagerMvcDB")
         {
-
         }
 
         public DbSet<T> Items { get; set; }

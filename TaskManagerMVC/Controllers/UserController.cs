@@ -6,7 +6,7 @@ namespace TaskManagerMVC.Controllers
 {
     public class UserController : BaseController<User, UserIndexVM, UserFilterVM, UserDetailsVM, UserCreateEditVM>
     {
-        // Repo
+        // Service
         public override BaseService<User> GetService()
         {
             return new UserService();
@@ -50,7 +50,7 @@ namespace TaskManagerMVC.Controllers
                 model.Password = user.Password;
                 model.FirstName = user.FirstName;
                 model.LastName = user.LastName;
-                model.IsAdmin = user.IsAdmin; 
+                model.IsAdmin = user.IsAdmin;
             }
 
             return model;

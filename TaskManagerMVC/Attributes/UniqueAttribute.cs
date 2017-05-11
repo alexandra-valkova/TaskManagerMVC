@@ -29,12 +29,12 @@ namespace TaskManagerMVC.Attributes
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             // get assembly and type of entity
-            var asm = Assembly.GetAssembly(typeof(BaseEntity));
+            Assembly asm = Assembly.GetAssembly(typeof(BaseEntity));
             Type entityType = asm.GetType(Entity);
 
             // property of Entity
             PropertyInfo pi = entityType.GetProperty(validationContext.MemberName);
-            
+
             // Expression: "entity"
             ParameterExpression parameter = Expression.Parameter(entityType, "entity");
 
@@ -44,7 +44,7 @@ namespace TaskManagerMVC.Attributes
             // Expression: "value"
             object convertedValue = Convert.ChangeType(value, pi.PropertyType);
             ConstantExpression rhs = Expression.Constant(convertedValue);
-             
+
             // Expression: "entity.PropertyName == value"
             BinaryExpression equal = Expression.Equal(lhs, rhs);
 
@@ -75,8 +75,8 @@ namespace TaskManagerMVC.Attributes
 
             LambdaExpression lambda = Expression.Lambda(expression, parameter);
 
-            var repoType = asm.GetType(Repository);
-            var repo = Activator.CreateInstance(repoType);
+            Type repoType = asm.GetType(Repository);
+            object repo = Activator.CreateInstance(repoType);
 
             object entity = repoType.GetMethod("GetFirst").Invoke(repo, new object[] { lambda });
 

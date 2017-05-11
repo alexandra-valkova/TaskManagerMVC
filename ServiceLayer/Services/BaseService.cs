@@ -6,8 +6,7 @@ using System.Linq.Expressions;
 
 namespace ServiceLayer.Services
 {
-    public abstract class BaseService<T>
-        where T : BaseEntity
+    public abstract class BaseService<T> where T : BaseEntity
     {
         private BaseRepository<T> Repository;
 

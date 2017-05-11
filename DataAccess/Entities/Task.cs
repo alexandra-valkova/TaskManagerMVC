@@ -14,15 +14,15 @@ namespace DataAccess.Entities
         public DateTime CreateDate { get; set; }
 
         public DateTime LastEditDate { get; set; }
-        
+
         public StatusEnum Status { get; set; }
 
         public int CreatorID { get; set; }
 
         public int ResponsibleID { get; set; }
-        
+
         public virtual User Creator { get; set; }
-        
+
         public virtual User Responsible { get; set; }
 
         public virtual List<Logwork> Logworks { get; set; }

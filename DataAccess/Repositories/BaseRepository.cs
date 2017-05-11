@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using DataAccess.Entities;
+﻿using DataAccess.Entities;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq.Expressions;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Repositories
 {

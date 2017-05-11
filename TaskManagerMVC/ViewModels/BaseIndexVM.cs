@@ -11,7 +11,7 @@ namespace TaskManagerMVC.ViewModels
         public List<T> Items { get; set; }
 
         public Pager Pager { get; set; }
-        
+
         public F Filter { get; set; }
     }
 }

@@ -10,13 +10,13 @@ namespace TaskManagerMVC.ViewModels.Users
     {
         [FilterProperty(DisplayName = "Username")]
         public string Username { get; set; }
-        
+
         [FilterProperty(DisplayName = "First Name")]
         public string FirstName { get; set; }
-        
+
         [FilterProperty(DisplayName = "Last Name")]
         public string LastName { get; set; }
-        
+
         [FilterProperty(DisplayName = "Admin", DropDownList = "AdminList")]
         public bool? IsAdmin { get; set; }
 

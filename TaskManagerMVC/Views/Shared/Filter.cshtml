@@ -6,7 +6,7 @@
     string prefix = Model.GetType().GetProperty("Prefix").GetValue(Model).ToString();
     PropertyInfo[] properties = Model.GetType().GetProperties();
     Dictionary<PropertyInfo, FilterPropertyAttribute> editableProperties = new Dictionary<PropertyInfo, FilterPropertyAttribute>();
-    var parentPager = (Pager)Model.GetType().GetProperty("ParentPager").GetValue(Model);
+    Pager parentPager = (Pager)Model.GetType().GetProperty("ParentPager").GetValue(Model);
 
     foreach (PropertyInfo pi in properties)
     {

@@ -1,16 +1,16 @@
 ﻿using DataAccess.Entities;
+using ServiceLayer.Services;
 using System;
+using System.Linq;
+using System.Web.Mvc;
 using TaskManagerMVC.Models;
 using TaskManagerMVC.ViewModels.Tasks;
-using System.Web.Mvc;
-using System.Linq;
-using ServiceLayer.Services;
 
 namespace TaskManagerMVC.Controllers
 {
     public class TaskController : BaseController<Task, TaskIndexVM, TaskFilterVM, TaskDetailsVM, TaskCreateEditVM>
     {
-        // Repo
+        // Service
         public override BaseService<Task> GetService()
         {
             return new TaskService();
