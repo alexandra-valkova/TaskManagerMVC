@@ -25,7 +25,7 @@ namespace TaskManagerMVC.Migrations
             //    );
             //
 
-            //context.Users.AddOrUpdate(new User { Username = "admin", Password = "adminpass", FirstName = "Admin", LastName = "Adminov", IsAdmin = true });
+            context.Users.AddOrUpdate(new User { Username = "admin", Password = "adminpass", FirstName = "Admin", LastName = "Adminov", IsAdmin = true });
         }
     }
 }
