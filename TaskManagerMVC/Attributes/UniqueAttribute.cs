@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
-using TaskManagerMVC.ViewModels;
 
 namespace TaskManagerMVC.Attributes
 {
@@ -11,14 +10,6 @@ namespace TaskManagerMVC.Attributes
     {
         public string Entity { get; set; }
         public string Repository { get; set; }
-
-        //private static Func<BaseVM, object> GetIdFunc { get; }
-
-        //static UniqueAttribute()
-        //{
-        //    Expression<Func<BaseVM, object>> modelExpr = model => model.ID;
-        //    GetIdFunc = modelExpr.Compile();
-        //}
 
         public UniqueAttribute(string entity, string repository)
         {
@@ -56,7 +47,6 @@ namespace TaskManagerMVC.Attributes
             // ID property of model
             PropertyInfo idModelProp = modelType.GetProperty("ID");
             object idValue = idModelProp.GetValue(validationContext.ObjectInstance);
-            //object idValue = GetIdFunc.Invoke((BaseVM)validationContext.ObjectInstance);
 
             // ID property of entity
             PropertyInfo idEntity = entityType.GetProperty("ID");
