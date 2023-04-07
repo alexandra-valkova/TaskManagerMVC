@@ -1,8 +1,8 @@
 ﻿using DataAccess.Entities;
 using ServiceLayer.Services;
 using System.Collections.Generic;
-using TaskManagerApiWCF.Models;
 using TaskManagerApiWCF.Interfaces;
+using TaskManagerApiWCF.Models;
 
 namespace TaskManagerApiWCF.WcfServices
 {
