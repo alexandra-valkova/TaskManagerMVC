@@ -3,7 +3,7 @@ namespace TaskManagerMVC.Migrations
     using DataAccess.Entities;
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TaskManagerMVC.AppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppContext>
     {
         public Configuration()
         {
@@ -15,17 +15,20 @@ namespace TaskManagerMVC.Migrations
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            //  to avoid creating duplicate seed data.
 
-            context.Users.AddOrUpdate(new User { Username = "admin", Password = "adminpass", FirstName = "Admin", LastName = "Adminov", IsAdmin = true });
+            context.Users.AddOrUpdate(
+                u => u.ID,
+                new User
+                {
+                    ID = 1,
+                    FirstName = "Admin",
+                    LastName = "Adminov",
+                    Username = "admin",
+                    Password = "password",
+                    IsAdmin = true
+                }
+            );
         }
     }
 }
