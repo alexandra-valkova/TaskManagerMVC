@@ -68,9 +68,10 @@
         </dd>
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Edit", "CreateEdit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "CreateEdit", new { id = Model.ID }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-outline-secondary" })
 </p>
 
 <hr />
@@ -84,18 +85,20 @@
 
 <br />
 
-<table class="table table-hover">
-    <tr>
-        <th>
-            User
-        </th>
-        <th>
-            Working Hours
-        </th>
-        <th>
-            Created Date
-        </th>
-    </tr>
+<table class="table table-hover table-borderless">
+    <thead class="table-light">
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Working Hours
+            </th>
+            <th>
+                Created Date
+            </th>
+        </tr>
+    </thead>
 
     @foreach (Logwork logwork in Model.Logworks)
     {
@@ -111,7 +114,6 @@
             </td>
         </tr>
     }
-
 </table>
 
 @Html.Partial("Pager", Model.LogworksPager)
@@ -127,18 +129,20 @@
 
 <br />
 
-<table class="table table-hover">
-    <tr>
-        <th>
-            User
-        </th>
-        <th>
-            Text
-        </th>
-        <th>
-            Created Date
-        </th>
-    </tr>
+<table class="table table-hover table-borderless">
+    <thead class="table-light">
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                Created Date
+            </th>
+        </tr>
+    </thead>
 
     @foreach (Comment comment in Model.Comments)
     {
@@ -154,7 +158,6 @@
             </td>
         </tr>
     }
-
 </table>
 
 @Html.Partial("Pager", Model.CommentsPager)

@@ -1,10 +1,9 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Home";
 }
 
 <div class="jumbotron">
     <h1>Task Manager</h1>
     <p class="lead">Made by Alexandra Valkova</p>
-    <p><a href="/Home/Login" class="btn btn-primary btn-lg">Log In &raquo;</a></p>
+    <p>@Html.ActionLink("Log In", "Login", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
