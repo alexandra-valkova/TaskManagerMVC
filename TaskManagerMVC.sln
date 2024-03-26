@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38AD01B8-B296-4F42-8BF7-0FCE8D6BCA47}"
 	ProjectSection(SolutionItems) = preProject
-		Task.txt = Task.txt
+		TaskManager.md = TaskManager.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceLayer", "ServiceLayer\ServiceLayer.csproj", "{42091CF7-40CB-4464-B636-B8C90EBBDA0C}"
